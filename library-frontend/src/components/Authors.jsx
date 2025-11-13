@@ -5,6 +5,7 @@ import { useState } from "react";
 const Authors = () => {
   const [born, setBorn] = useState("");
   const [name, setName] = useState("");
+  const token = localStorage.getItem('user-token')
 
   const result = useQuery(AUTHORS);
   const [edit_birth_year] = useMutation(EDIT_BIRTH_YEAR, {
@@ -48,26 +49,30 @@ const Authors = () => {
         </tbody>
       </table>
 
-      <h2>Set Birth Year</h2>
-      <form onSubmit={updateBirthYear}>
-        name
-        <select
-          name="name"
-          onChange={({ target }) => setName(target.value)}
-        >
-          {nameOptions}
-        </select>
-        <br />
-        born
-        <input
-          name="born"
-          type="number"
-          value={born}
-          onChange={({ target }) => setBorn(Number(target.value))}
-        />
-        <br />
-        <button type="submit">Edit</button>
-      </form>
+      { token &&
+        <>
+          <h2>Set Birth Year</h2>
+          <form onSubmit={updateBirthYear}>
+            name
+            <select
+              name="name"
+              onChange={({ target }) => setName(target.value)}
+            >
+              {nameOptions}
+            </select>
+            <br />
+            born
+            <input
+              name="born"
+              type="number"
+              value={born}
+              onChange={({ target }) => setBorn(Number(target.value))}
+            />
+            <br />
+            <button type="submit">Edit</button>
+          </form>
+        </>
+      }
     </div>
   );
 };
