@@ -10,15 +10,15 @@ export const AUTHORS = gql`
   }
 `;
 
-export const BOOKS = gql`
-  query {
-    allBooks {
+export const BOOK_ADDED = gql`
+  subscription Subscription {
+    bookAdded {
       title
-      published
       author {
         name
-        born
       }
+      published
+      genres
     }
   }
 `;
